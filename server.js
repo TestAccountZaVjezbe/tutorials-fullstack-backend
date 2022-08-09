@@ -5,6 +5,7 @@ import testRouter from './routers/testRouter'
 import categoryRouter from './routers/category.router';
 import mongoose from 'mongoose';
 import subCategoryRouter from './routers/subCategory.router';
+import itemRouter from './routers/item.router';
 
 const server = express();
 
@@ -17,6 +18,7 @@ const init = () => {
     server.use('/test', testRouter)
     server.use('/category', categoryRouter);
     server.use('/sub-category', subCategoryRouter);
+    server.use('/item', itemRouter);
 
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`)

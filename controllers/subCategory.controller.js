@@ -17,6 +17,15 @@ const getAllSubCategories = async(req, res) => {
         return res.send({ msg: "Internal server error"}).status(500);
     }
 };
+const getSubCategoryByCategory = async(req, res) => {
+    try{
+        const {params} = req;
+        const subcategory = await subCategoryServiceHandler.getSubCategoryByCategory(params.id);
+        return res.send(subcategory);
+    } catch(e){
+        return res.send({ msg: "Internal server error"}).status(500);
+    }
+}
 const createOneSubCategory = async(req, res) => {
     try{
         const {body} = req;
@@ -51,6 +60,7 @@ const subCategoryController = {
     createOneSubCategory,
     updateOneSubCategory,
     deleteOneSubCategory,
+    getSubCategoryByCategory,
 };
 
 export default subCategoryController

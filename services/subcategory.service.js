@@ -22,9 +22,9 @@ const getSubCategoryByCategory = async(id) => {
 }
 
 
-const validateCategory = async(categoryId) => {
+export const validateCategory = async(categoryId) => {
     //checks
-    const category = await Category.findOne({_id: categoryId})
+    const category = await Category.findOne({_id: mongoose.Types.ObjectId(categoryId)})
     //validations
     if(!category) throw new Error(`Category does not exists with the id ${categoryId}`)
     return category._id
@@ -40,12 +40,13 @@ const createOneSubCategory = async(data) => {
 };
 const updateOneSubCategory = async(id, data) => {
     const { categoryId, ...restOfTheData} = data;
-
+    let objectToUpdate = restOfTheData;
     if(categoryId){
-        await validateCategory(data.categoryId);
+        const cid = await validateCategory(data.categoryId);
+        objectToUpdate.categoryId = cid;
     }
     
-    const objectToUpdate = categoryId ? data : restOfTheData;
+    
 
     return await SubCategory.updateOne({
         _id: mongoose.Types.ObjectId(id)
